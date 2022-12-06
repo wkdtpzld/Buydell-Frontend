@@ -1,13 +1,11 @@
 import { gql } from "@apollo/client";
-import { LoginFormComponents } from "../components/LoginForm/LoginFormComponent";
-import { LoginBox, LoginWrap } from "../styles/Login/LoginStyled";
+import { LoginFormComponents } from "../components/UserForm/LoginFormComponent";
+import { UserBox, UserWrap } from '../styles/User/UserStyled';
+import Helmet from "react-helmet";
 
 export const LOGIN_MUTATION = gql`
-  mutation loginMutation($email: String!, $password:String!) {
-    login(input: {
-      email: $email,
-      password: $password,
-    }) {
+  mutation loginMutation($loginInput: LoginInput!) {
+    login(input: $loginInput) {
       ok
       error
       accessToken
@@ -19,10 +17,13 @@ export const LOGIN_MUTATION = gql`
 export const Login = () => {
 
   return (
-    <LoginWrap>
-      <LoginBox>
+    <UserWrap>
+      <Helmet>
+        <title>BuyDell | Login</title>
+      </Helmet>
+      <UserBox>
         <LoginFormComponents />
-      </LoginBox>
-    </LoginWrap>
+      </UserBox>
+    </UserWrap>
   );
 };
