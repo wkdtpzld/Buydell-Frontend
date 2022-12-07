@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { SignUpFormComponents } from '../components/UserForm/SignupFormComponents';
 import { UserWrap, UserBox } from '../styles/User/UserStyled';
 

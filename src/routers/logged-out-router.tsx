@@ -8,7 +8,8 @@ export const LoggedOutRouter = () => {
     <Router>
       <Routes>
         <Route path="/create-account" element={<CreateAccount />}/>
-        <Route path="/login" element={<Login />}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<span>Not Found</span>} />
       </Routes>
     </Router>
   )

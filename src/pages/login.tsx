@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { LoginFormComponents } from "../components/UserForm/LoginFormComponent";
 import { UserBox, UserWrap } from '../styles/User/UserStyled';
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export const LOGIN_MUTATION = gql`
   mutation loginMutation($loginInput: LoginInput!) {

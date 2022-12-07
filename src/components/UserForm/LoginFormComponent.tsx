@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import { ErrorMesage } from '../../styles/common/CommonStyled';
 import { UserInputComponent } from "./UserInputComponent";
 import { isLoggedInVar } from '../../apollo';
+import { LOCALSTORAGE_TOKEN, REFRESH_TOKEN } from '../../constants';
+import { setCookie } from '../../utils/useCookie';
 
 interface ILoginForm {
   email: string;
@@ -37,7 +39,12 @@ export const LoginFormComponents: React.FC = () => {
       login: { error, ok, accessToken, refreshToken },
     } = data;
 
-    if (ok) {
+    if (ok && accessToken && refreshToken) {
+      localStorage.setItem(LOCALSTORAGE_TOKEN, accessToken);
+      setCookie(REFRESH_TOKEN, refreshToken, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 14 // 14d
+      });
       isLoggedInVar(true);
     }
   };
