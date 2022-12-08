@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SubmitBtnComponent } from "../common/SubmitBtn";
 import { useMutation } from "@apollo/client";
 import { SIGN_UP_MUTATION } from "../../pages/create-account";
-import { UserRole } from "../../__generated__/globalTypes";
+
 import {
   Options,
   SelectBox,
@@ -24,6 +24,8 @@ import {
   signUpMutation,
 } from "../../__generated__/signUpMutation";
 import { ErrorMessageComponent } from "../common/ErrorMessage";
+import { emailPattern } from "../../utils/jslib";
+import { UserRole } from '../../__generated__/globalTypes';
 
 interface ISignUpForm {
   email: string;
@@ -40,6 +42,7 @@ export const SignUpFormComponents: React.FC = () => {
     defaultValues: {
       role: UserRole.Client,
     },
+    mode: "onChange",
   });
   const navigate = useNavigate();
   const onCompleted = (data: signUpMutation) => {
@@ -47,7 +50,7 @@ export const SignUpFormComponents: React.FC = () => {
       createAccount: { ok, error },
     } = data;
 
-    if (ok) {
+    if (ok && !error) {
       navigate("/login");
     }
   };
@@ -86,7 +89,7 @@ export const SignUpFormComponents: React.FC = () => {
             },
             pattern: {
               value:
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              emailPattern,
               message: "이메일이 정확한지 확인해주세요.",
             },
           })}

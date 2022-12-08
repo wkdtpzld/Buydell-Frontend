@@ -1,37 +1,24 @@
-import { gql, useQuery } from '@apollo/client';
-import { meQuery } from '../__generated__/meQuery';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Restaurants } from '../pages/client/restaurants';
+import { Header } from '../components/common/Header';
+import { useMe } from '../hooks/useMe';
+import { ConfirmEmail } from '../pages/user/confirm-email';
+import { EditProfile } from '../pages/user/edit-profile';
 
 const ClientRouter = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Restaurants />} />
-        <Route path="*" element={<span>notFound</span>} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path='/' element={<Restaurants />} />
+      <Route path="/confirm" element={<ConfirmEmail />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="*" element={<span>notFound</span>} />
+    </Routes>
   )
 }
 
-const ME_QUERY = gql`
-  query meQuery {
-    me {
-      id
-      email
-      role
-      verified
-    }
-  }
-`
-
 export const LoggedInRouter = () => {
 
-  const { data, loading, error } = useQuery<meQuery>(ME_QUERY);
-  
-  console.log(data?.me.role);
-  console.log(error);
-  
+  const { data, loading, error } = useMe();
 
   if (!data || loading || error) {
     return (
@@ -42,8 +29,9 @@ export const LoggedInRouter = () => {
   }
 
   return (
-    <>
+    <Router>
+      <Header/>
       {data.me.role === 'Client' && <ClientRouter />}
-    </>
+    </Router>
   )
 }

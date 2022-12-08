@@ -15,12 +15,13 @@ import {
 } from "../../__generated__/loginMutation";
 import logo from "../../images/Logo.jpg";
 import { SubmitBtnComponent } from "../common/SubmitBtn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMesage } from '../../styles/common/CommonStyled';
 import { UserInputComponent } from "./UserInputComponent";
 import { isLoggedInVar } from '../../apollo';
 import { LOCALSTORAGE_TOKEN, REFRESH_TOKEN } from '../../constants';
-import { setCookie } from '../../utils/useCookie';
+import { setCookie } from '../../hooks/useCookie';
+import { emailPattern } from '../../utils/jslib';
 
 interface ILoginForm {
   email: string;
@@ -32,20 +33,24 @@ export const LoginFormComponents: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<ILoginForm>();
+  } = useForm<ILoginForm>({ mode: "onChange" });
+
+  const navigate = useNavigate();
 
   const onCompleted = (data: loginMutation) => {
     const {
       login: { error, ok, accessToken, refreshToken },
     } = data;
 
-    if (ok && accessToken && refreshToken) {
+    if (ok && accessToken && refreshToken && !error) {
       localStorage.setItem(LOCALSTORAGE_TOKEN, accessToken);
       setCookie(REFRESH_TOKEN, refreshToken, {
         path: '/',
         maxAge: 60 * 60 * 24 * 14 // 14d
       });
       isLoggedInVar(true);
+      navigate("/", { replace: true });
+      navigate(0);
     }
   };
 
@@ -57,7 +62,6 @@ export const LoginFormComponents: React.FC = () => {
   );
 
   const onValid = ({ email, password }: ILoginForm) => {
-    console.log(email, password);
     loginMutation({
       variables: {
         loginInput: {
@@ -81,7 +85,7 @@ export const LoginFormComponents: React.FC = () => {
             },
             pattern: {
               value:
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              emailPattern,
               message: "이메일이 정확한지 확인해주세요.",
             },
           })}
