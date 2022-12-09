@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { EditProfileForm } from "../../styles/User/EditProfileStyled";
 import { SubmitBtnComponent } from "../common/SubmitBtn";
 import { emailPattern } from "../../utils/jslib";
-import { useMutation, useApolloClient, gql, OperationVariables, ApolloQueryResult } from "@apollo/client";
+import { useMutation, useApolloClient, gql, ApolloQueryResult } from "@apollo/client";
 import { EDIT_PROFILE_MUTATION } from "../../pages/user/edit-profile";
 import {
   editProfile,

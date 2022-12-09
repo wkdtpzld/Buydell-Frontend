@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { Helmet } from "react-helmet-async";
 import { EditProfileFormComponent } from "../../components/EditProfile/EditProfileForm";
 import { useMe } from "../../hooks/useMe";
 import {
@@ -21,6 +22,9 @@ export const EditProfile = () => {
 
   return (
     <EditProfileWrap>
+      <Helmet>
+        <title>Buydell | EditProfile</title>
+      </Helmet>
       <EditProfileBox>
         <EditProfileHeader>회원 정보 변경</EditProfileHeader>
         <EditProfileFormComponent user={userData!.me} refetch={refetch} />

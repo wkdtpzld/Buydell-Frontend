@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import logo from "../../images/Logo.jpg";
 import { useMe } from '../../hooks/useMe';
-import styled from 'styled-components';
 import {
   HeaderBox,
   HeaderInfo,
   HeaderLogo,
   HedaerWrap,
+  VerifyVar,
 } from "../../styles/common/CommonStyled";
 
 export const Header = () => {
@@ -20,8 +20,8 @@ export const Header = () => {
           <span>계정 인증을 해주세요.</span>
         </VerifyVar>
       )}
-      <HedaerWrap>
-        <HeaderBox className="justify-between">
+      <HedaerWrap verified={Boolean(data?.me.verified)}>
+        <HeaderBox>
           <Link to="/">
             <HeaderLogo src={logo} alt="headerLogo"></HeaderLogo>
           </Link>
@@ -48,11 +48,3 @@ export const Header = () => {
     </>
   );
 };
-
-export const VerifyVar = styled.div`
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  text-align: center;
-  background: #e84118;
-  color: white;
-`

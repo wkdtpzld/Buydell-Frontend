@@ -157,10 +157,13 @@ export const Options = styled.option`
   outline: none;
 `
 
-export const HedaerWrap = styled(MediaHeader)`
+export const HedaerWrap = styled(MediaHeader) <{ verified: boolean }>`
   background-color: #f7f7f7;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+  position: fixed;
+  width: 100%;
+  margin-top: ${(props) => (props.verified ? '0' : "2.5rem")};
 
   @media screen and (min-width: 1920px) {
     padding-left: 20rem;
@@ -188,4 +191,14 @@ export const HeaderLogo = styled.img`
 
 export const HeaderInfo = styled.span`
   font-size: 1.3rem;
+`
+
+export const VerifyVar = styled.div`
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  background: #e84118;
+  color: white;
+  position: fixed;
+  width: 100%;
 `
