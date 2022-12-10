@@ -7,7 +7,6 @@ export const EditProfileWrap = styled.div`
   background-image: url(${backGroundImage});
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 65px;
 `;
 
 export const EditProfileBox = styled(MediaDiv)`

@@ -161,9 +161,11 @@ export const HedaerWrap = styled(MediaHeader) <{ verified: boolean }>`
   background-color: #f7f7f7;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100%;
-  margin-top: ${(props) => (props.verified ? '0' : "2.5rem")};
+  margin-top: ${(props) => (props.verified ? '0' : "0")};
+  z-index: 10;
 
   @media screen and (min-width: 1920px) {
     padding-left: 20rem;
@@ -189,8 +191,11 @@ export const HeaderLogo = styled.img`
   user-select: none;
 `
 
-export const HeaderInfo = styled.span`
+export const HeaderInfo = styled.form`
   font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const VerifyVar = styled.div`
@@ -199,6 +204,24 @@ export const VerifyVar = styled.div`
   text-align: center;
   background: #e84118;
   color: white;
-  position: fixed;
+  position: sticky;
+  top:0;
   width: 100%;
+`
+
+export const HedaerInput = styled.input`
+  background: #dcdde1;
+  padding: 0.7rem 0.7rem;
+  padding-left: 40px;
+  outline: none;
+  border-radius: 0.325rem;
+  font-size: 0.9rem;
+`
+
+export const HeaderInputBox = styled.div`
+  display: flex;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  justify-content: center;
+  align-items: center;
 `

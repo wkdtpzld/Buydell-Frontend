@@ -1,5 +1,11 @@
-import { gql, useQuery } from "@apollo/client"
-import { restaurantsPageQuery, restaurantsPageQueryVariables } from '../../__generated__/restaurantsPageQuery';
+import { gql, useQuery } from "@apollo/client";
+import {
+  restaurantsPageQuery,
+  restaurantsPageQueryVariables,
+} from "../../__generated__/restaurantsPageQuery";
+import { CategoriesWrap } from "../../styles/common/Slider";
+import { SliderComponent } from "../../components/common/Slider";
+import { CategoriesContainer, Category, CategoryItem, CategoryName } from "../../styles/Categories/AllCategories";
 
 const RESTAURANT_QUERY = gql`
   query restaurantsPageQuery($input: RestaurantsInput!) {
@@ -31,24 +37,32 @@ const RESTAURANT_QUERY = gql`
       }
     }
   }
-`
+`;
 export const Restaurants = () => {
-
   const { data, loading, error } = useQuery<
     restaurantsPageQuery,
     restaurantsPageQueryVariables
   >(RESTAURANT_QUERY, {
     variables: {
       input: {
-        page: 1
-      }
+        page: 1,
+      },
     },
   });
 
-  console.log(data);
   return (
-    <div>
-      restaurants
-    </div>
-  )
-}
+    <CategoriesWrap>
+      <SliderComponent />
+      {!loading && (
+        <CategoriesContainer>
+          {data?.allCategories.categories?.map((category, index) => (
+            <CategoryItem>
+              <Category key={index}></Category>
+              <CategoryName>종류이름</CategoryName>
+            </CategoryItem>
+          ))}
+        </CategoriesContainer>
+      )}
+    </CategoriesWrap>
+  );
+};
