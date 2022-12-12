@@ -3,6 +3,7 @@ import { InMemoryCache, makeVar } from "@apollo/client/cache";
 import { LOCALSTORAGE_TOKEN, REFRESH_TOKEN } from './constants';
 import { getCookie } from './hooks/useCookie';
 import { setContext } from '@apollo/client/link/context';
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
 const reToken = getCookie(REFRESH_TOKEN);
@@ -46,7 +47,8 @@ export const client = new ApolloClient({
             read() {
               return refreshToken();
             }
-          }
+          },
+          restaurants: offsetLimitPagination(),
         }
       }
     }

@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
 export const CategoriesWrap = styled.div`
-  height: 100vh;
+  height: 85vh;
   width: 100%;
-  overflow: hidden;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const SliderWrap = styled.div`

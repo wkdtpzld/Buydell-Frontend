@@ -31,6 +31,8 @@ export interface LoginInput {
 
 export interface RestaurantsInput {
   page?: number | null;
+  offset?: number | null;
+  limit?: number | null;
 }
 
 export interface VerifyEmailInput {
